@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexFlow - Guía de Usuario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        h2 {
+            color: #1e3a5f;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2d5a87;
+        }
+        h3 {
+            color: #2d5a87;
+            margin: 20px 0 10px;
+        }
+        .role-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .role-card.super-admin {
+            border-left: 5px solid #dc2626;
+        }
+        .role-card.admin {
+            border-left: 5px solid #2563eb;
+        }
+        .role-card.lawyer {
+            border-left: 5px solid #16a34a;
+        }
+        .role-card.client {
+            border-left: 5px solid #9333ea;
+        }
+        .role-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .role-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .super-admin .role-badge { background: #fef2f2; color: #dc2626; }
+        .admin .role-badge { background: #eff6ff; color: #2563eb; }
+        .lawyer .role-badge { background: #f0fdf4; color: #16a34a; }
+        .client .role-badge { background: #faf5ff; color: #9333ea; }
+        .permissions-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .permission {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+        .permission.allow { color: #16a34a; }
+        .permission.deny { color: #dc2626; opacity: 0.6; }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .step {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            align-items: flex-start;
+        }
+        .step-number {
+            background: #1e3a5f;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-content h4 {
+            color: #1e3a5f;
+            margin-bottom: 5px;
+        }
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .flow-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .flow-arrow {
+            color: #1e3a5f;
+            font-size: 1.5em;
+            margin-left: 10px;
+        }
+        .icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f7ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #1e3a5f;
+        }
+        .check { color: #16a34a; }
+        .cross { color: #dc2626; }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>LexFlow</h1>
+            <p class="subtitle">Plataforma de Gestión Legal para LATAM</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>¿Qué es LexFlow?</h2>
+            <p>LexFlow es una plataforma SaaS de gestión legalMulti-tenancy para bufetes de abogados en Latinoamérica. Permite gestionar clientes, casos, documentos, audiencias y facturación de manera eficiente y segura.</p>
+        </section>
+
+        <section>
+            <h2>Roles de Usuario</h2>
+            <p>LexFlow tiene 4 roles definidos con diferentes niveles de acceso:</p>
+
+            <div class="role-card super-admin">
+                <div class="role-title">
+                    <h3>👑 Super Administrador</h3>
+                    <span class="role-badge">Nivel 4</span>
+                </div>
+                <p>Cuenta con acceso total a todas las organizaciones y funciones del sistema. Puede administrar otras organizaciones, ver todas las estadísticas globales y gestionar usuarios.</p>
+                <div class="permissions-list">
+                    <div class="permission allow">✓ Organizaciones (CRUD)</div>
+                    <div class="permission allow">✓ Usuarios (CRUD)</div>
+                    <div class="permission allow">✓ Casos (CRUD)</div>
+                    <div class="permission allow">✓ Clientes (CRUD)</div>
+                    <div class="permission allow">✓ Documentos (CRUD)</div>
+                    <div class="permission allow">✓ Audiencias (CRUD)</div>
+                    <div class="permission allow">✓ Tareas (CRUD)</div>
+                    <div class="permission allow">✓ Notificaciones (CRUD)</div>
+                    <div class="permission allow">✓ Memberships (CRUD)</div>
+                    <div class="permission allow">✓ Audit Logs (lectura)</div>
+                </div>
+            </div>
+
+            <div class="role-card admin">
+                <div class="role-title">
+                    <h3>⚙️ Administrador</h3>
+                    <span class="role-badge">Nivel 3</span>
+                </div>
+                <p>Es el administrador de una organización (bufete). Tiene acceso completo a los casos, clientes y configuración de su organización.</p>
+                <div class="permissions-list">
+                    <div class="permission allow">✓ Organizaciones (lectura)</div>
+                    <div class="permission allow">✓ Usuarios (CRUD)</div>
+                    <div class="permission allow">✓ Casos (CRUD + manage)</div>
+                    <div class="permission allow">✓ Clientes (CRUD)</div>
+                    <div class="permission allow">✓ Documentos (CRUD)</div>
+                    <div class="permission allow">✓ Audiencias (CRUD)</div>
+                    <div class="permission allow">✓ Tareas (CRUD)</div>
+                    <div class="permission allow">✓ Notificaciones (CRUD)</div>
+                    <div class="permission allow">✓ Memberships (lectura)</div>
+                    <div class="permission allow">✓ Audit Logs (lectura)</div>
+                </div>
+            </div>
+
+            <div class="role-card lawyer">
+                <div class="role-title">
+                    <h3>⚖️ Abogado</h3>
+                    <span class="role-badge">Nivel 2</span>
+                </div>
+                <p>Abogado de la organización. Tiene acceso a los casos y clientes asignados, puede crear documentos y gestionar audiencias.</p>
+                <div class="permissions-list">
+                    <div class="permission deny">✗ Organizaciones</div>
+                    <div class="permission allow">✓ Usuarios (lectura)</div>
+                    <div class="permission allow">✓ Casos (crear, leer, actualizar)</div>
+                    <div class="permission allow">✓ Clientes (crear, leer, actualizar)</div>
+                    <div class="permission allow">✓ Documentos (CRUD)</div>
+                    <div class="permission allow">✓ Audiencias (crear, leer, actualizar)</div>
+                    <div class="permission allow">✓ Tareas (CRUD)</div>
+                    <div class="permission allow">✓ Notificaciones (lectura)</div>
+                    <div class="permission deny">✗ Memberships</div>
+                    <div class="permission deny">✗ Audit Logs</div>
+                </div>
+            </div>
+
+            <div class="role-card client">
+                <div class="role-title">
+                    <h3>👤 Cliente</h3>
+                    <span class="role-badge">Nivel 1</span>
+                </div>
+                <p>Cliente del bufete. Tiene acceso limitado solo a sus propios casos y documentos compartidos por el abogado.</p>
+                <div class="permissions-list">
+                    <div class="permission deny">✗ Organizaciones</div>
+                    <div class="permission deny">✗ Usuarios</div>
+                    <div class="permission allow">✓ Casos (lectura)</div>
+                    <div class="permission deny">✗ Clientes</div>
+                    <div class="permission allow">✓ Documentos (lectura)</div>
+                    <div class="permission allow">✓ Audiencias (lectura)</div>
+                    <div class="permission deny">✗ Tareas</div>
+                    <div class="permission allow">✓ Notificaciones (lectura)</div>
+                    <div class="permission deny">✗ Memberships</div>
+                    <div class="permission deny">✗ Audit Logs</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Cómo Usar LexFlow</h2>
+
+            <h3>Paso 1: Registro e Inicio de Sesión</h3>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Acceder a la aplicación</h4>
+                    <p>Visita la URL de LexFlow (proporcionada por tu administrador o encontrada en el email de invitación). Serás redirigido a la página de inicio de sesión de Clerk.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Iniciar sesión o registrarse</h4>
+                    <p>Si ya tienes cuenta, ingresa tu email y contraseña. Si es tu primera vez, usa el enlace de invitación que recibiste por email.</p>
+                </div>
+            </div>
+
+            <h3>Paso 2: Dashboard</h3>
+            <div class="step">
+                <div class="step-content">
+                    <h4>Según tu rol, verás diferentes dashboards:</h4>
+                    <ul>
+                        <li><strong>Super Admin:</strong> Panel de super administrador con estadísticas globales</li>
+                        <li><strong>Admin:</strong> Dashboard del bufete con casos, clientes y métricas</li>
+                        <li><strong>Lawyer:</strong> Dashboard personal con sus casos asignados</li>
+                        <li><strong>Client:</strong> Portal del cliente con sus casos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Paso 3: Navegación</h3>
+            <div class="step">
+                <div class="step-content">
+                    <h4>Usa el menú lateral para navegar:</h4>
+                    <ul>
+                        <li><strong>Dashboard:</strong> Vista principal</li>
+                        <li><strong>Casos:</strong> Gestión de casos legales</li>
+                        <li><strong>Clientes:</strong> Administración de clientes</li>
+                        <li><strong>Documentos:</strong> Centro de documentos</li>
+                        <li><strong>Calendario:</strong> Audiencias y citas</li>
+                        <li><strong>Tareas:</strong> Gestión de tareas</li>
+                        <li><strong>Configuración:</strong> Ajustes del perfil y organización</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Flujo de Trabajo por Rol</h2>
+
+            <h3>Flujo Super Administrador</h3>
+            <div class="flowchart">
+                <div class="flow-item">
+                    <div class="icon">🏠</div>
+                    <div>Iniciar sesión en panel de super admin</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📊</div>
+                    <div>Ver dashboard y estadísticas globales</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">🏢</div>
+                    <div>Gestionar organizaciones</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">👥</div>
+                    <div>Invitar/administrar usuarios</div>
+                </div>
+            </div>
+
+            <h3>Flujo Administrador (Bufete)</h3>
+            <div class="flowchart">
+                <div class="flow-item">
+                    <div class="icon">🏠</div>
+                    <div>Iniciar sesión en dashboard</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">⚙️</div>
+                    <div>Configurar organización</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">👥</div>
+                    <div>Invitar abogados y clientes</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📁</div>
+                    <div>Gestionar casos y clientes</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📄</div>
+                    <div>Subir documentos</div>
+                </div>
+            </div>
+
+            <h3>Flujo Abogado</h3>
+            <div class="flowchart">
+                <div class="flow-item">
+                    <div class="icon">🏠</div>
+                    <div>Iniciar sesión</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📋</div>
+                    <div>Ver mis casos asignados</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📝</div>
+                    <div>Crear/actualizar casos</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📎</div>
+                    <div>Subir documentos</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📅</div>
+                    <div>Agendar audiencias</div>
+                </div>
+            </div>
+
+            <h3>Flujo Cliente</h3>
+            <div class="flowchart">
+                <div class="flow-item">
+                    <div class="icon">📱</div>
+                    <div>Acceder al portal del cliente</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📂</div>
+                    <div>Ver mis casos</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">📄</div>
+                    <div>Descargar documentos</div>
+                </div>
+                <div class="flow-arrow">↓</div>
+                <div class="flow-item">
+                    <div class="icon">🔔</div>
+                    <div>Recibir notificaciones</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Comparación de Permisos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Recurso</th>
+                        <th>Super Admin</th>
+                        <th>Admin</th>
+                        <th>Lawyer</th>
+                        <th>Client</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Organizaciones</td>
+                        <td class="check">✓</td>
+                        <td>lectura</td>
+                        <td class="cross">✗</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                    <tr>
+                        <td>Usuarios</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td>lectura</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                    <tr>
+                        <td>Casos</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td>CRU</td>
+                        <td>lectura</td>
+                    </tr>
+                    <tr>
+                        <td>Clientes</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td>CRU</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                    <tr>
+                        <td>Documentos</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td>lectura</td>
+                    </tr>
+                    <tr>
+                        <td>Audiencias</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td>CRU</td>
+                        <td>lectura</td>
+                    </tr>
+                    <tr>
+                        <td>Tareas</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="check">✓</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>Preguntas Frecuentes</h2>
+            
+            <h3>¿Cómo recupero mi contraseña?</h3>
+            <p>En la página de inicio de sesión, haz clic en "¿Olvidaste tu contraseña?" y sigue las instrucciones enviadas a tu email.</p>
+
+            <h3>¿Puedo cambiar mi rol?</h3>
+            <p>No, el rol es asignado por el administrador de tu organización. Contacta a tu administrador para cambios.</p>
+
+            <h3>¿Dónde veo mis casos asignados?</h3>
+            <p>Ve al menú lateral > Casos > Mis Casos (para abogados) o simplemente Casos (para administradores).</p>
+
+            <h3>¿Cómo subo documentos?</h3>
+            <p>En la página de detalle de un caso, busca el botón "Subir Documento" o arrastra archivos a la zona de documentos.</p>
+
+            <h3>¿El cliente puede ver todos los documentos?</h3>
+            <p>No, el cliente solo ve los documentos que el abogado comparte explícitamente.</p>
+
+            <h3>Necesito acceso a otra organización</h3>
+            <p>Contacta al super administrador para que te invite a otra organización.</p>
+        </section>
+
+        <section>
+            <h2>Soporte</h2>
+            <p>Si tienes problemas o preguntas:</p>
+            <ul>
+                <li>📧 Email: soporte@lexflow.com</li>
+                <li>💬 Chat en vivo: Disponible en la aplicación</li>
+                <li>📚 Documentación: docs.lexflow.com</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 LexFlow - Plataforma de Gestión Legal</p>
+    </footer>
+</body>
+</html>

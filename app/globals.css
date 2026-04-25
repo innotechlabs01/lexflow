@@ -1,0 +1,251 @@
+@import 'tailwindcss';
+
+/* ============================================
+   LexFlow - Global Styles
+   ============================================ */
+
+/* CSS Variables */
+:root {
+  /* Primary - Stitch Design System (#004ac6) */
+  --primary-50: #e6f0ff;
+  --primary-100: #cce0ff;
+  --primary-200: #99c2ff;
+  --primary-300: #66a3ff;
+  --primary-400: #3385ff;
+  --primary-500: #0066ff;
+  --primary-600: #004ac6;
+  --primary-700: #003999;
+  --primary-800: #002766;
+  --primary-900: #001433;
+  
+  /* Primary real */
+  --primary: #004ac6;
+  --primary-foreground: #ffffff;
+
+  /* Background - Stitch (#f9f9ff) */
+  --background: 250 100% 99%;
+  --foreground: 222 47% 11%;
+
+  /* Card */
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+
+  /* Popover */
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+
+  /* Secondary - Stitch (#0058be) */
+  --secondary: 207 100% 96%;
+  --secondary-foreground: 207 100% 35%;
+
+  /* Muted */
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+
+  /* Accent */
+  --accent: 220 14% 96%;
+  --accent-foreground: 222 47% 11%;
+
+  /* Tertiary - Stitch (#3e3fcc) */
+  --tertiary: 243 70% 56%;
+  --tertiary-foreground: 0 0% 100%;
+
+  /* Destructive */
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Border & Ring */
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 221 100% 50%;
+
+  /* Success */
+  --success: 142 76% 36%;
+  --success-foreground: 0 0% 100%;
+
+  /* Warning */
+  --warning: 38 92% 50%;
+  --warning-foreground: 0 0% 100%;
+
+  /* Info */
+  --info: 207 100% 50%;
+  --info-foreground: 0 0% 100%;
+
+  /* Radius */
+  --radius: 0.5rem;
+
+  /* Super Admin - Purple theme */
+  --superadmin-50: #f5f3ff;
+  --superadmin-100: #ede9fe;
+  --superadmin-200: #ddd6fe;
+  --superadmin-300: #c4b5fd;
+  --superadmin-400: #a78bfa;
+  --superadmin-500: #8b5cf6;
+  --superadmin-600: #7c3aed;
+  --superadmin-700: #6d28d9;
+  --superadmin-800: #5b21b6;
+  --superadmin-900: #4c1d95;
+  --superadmin: #7c3aed;
+  --superadmin-foreground: #ffffff;
+
+  /* Sidebar - Stitch inspired (light) */
+  --sidebar-background: #f9f9ff;
+  --sidebar-foreground: #111827;
+  --sidebar-muted: #6b7280;
+  --sidebar-border: #e5e7eb;
+  --sidebar-accent: #004ac6;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-hover: #e6f0ff;
+  --sidebar-active: #004ac6;
+  --sidebar-active-foreground: #ffffff;
+}
+
+.dark {
+  --primary-50: #e6f0ff;
+  --primary-100: #cce0ff;
+  --primary-200: #99c2ff;
+  --primary-300: #66a3ff;
+  --primary-400: #3385ff;
+  --primary-500: #0066ff;
+  --primary-600: #004ac6;
+  --primary-700: #003999;
+  --primary-800: #002766;
+  --primary-900: #001433;
+  
+  --primary: #3385ff;
+  --primary-foreground: #ffffff;
+
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
+
+  --card: 217 33% 17%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 217 33% 17%;
+  --popover-foreground: 210 40% 98%;
+
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+
+  --accent: 217 33% 17%;
+  --accent-foreground: 210 40% 98%;
+
+  --tertiary: 243 70% 56%;
+  --tertiary-foreground: 0 0% 100%;
+
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217 33% 25%;
+  --input: 217 33% 25%;
+  --ring: 221 100% 50%;
+
+  --sidebar-background: #0f172a;
+  --sidebar-foreground: #f1f5f9;
+  --sidebar-muted: #94a3b8;
+  --sidebar-border: #1e293b;
+  --sidebar-accent: #3385ff;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-hover: #1e293b;
+  --sidebar-active: #004ac6;
+  --sidebar-active-foreground: #ffffff;
+}
+
+/* Base */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-10px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-fade-in { animation: fadeIn 0.2s ease-in-out; }
+.animate-slide-in { animation: slideIn 0.3s ease-out; }
+.animate-slide-up { animation: slideUp 0.3s ease-out; }
+.animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+
+/* Timeline colors */
+.event-document { --event-color: #3b82f6; }
+.event-hearing { --event-color: #f59e0b; }
+.event-communication { --event-color: #10b981; }
+.event-status { --event-color: #8b5cf6; }
+.event-note { --event-color: #64748b; }
+.event-task { --event-color: #ec4899; }
+.event-external { --event-color: #06b6d4; }
+
+/* Status badge colors */
+.status-open { background-color: #dcfce7; color: #166534; }
+.status-in_progress { background-color: #dbeafe; color: #1e40af; }
+.status-hearing { background-color: #fef3c7; color: #92400e; }
+.status-appeal { background-color: #ede9fe; color: #6b21a8; }
+.status-closed { background-color: #f1f5f9; color: #475569; }
+.status-archived { background-color: #f1f5f9; color: #64748b; }
+
+/* Priority colors */
+.priority-low { background-color: #f1f5f9; color: #64748b; }
+.priority-normal { background-color: #dbeafe; color: #1e40af; }
+.priority-high { background-color: #fef3c7; color: #92400e; }
+.priority-urgent { background-color: #fee2e2; color: #991b1b; }
+
+/* Role badge colors */
+.role-super_admin { background-color: #f3e8ff; color: #7c3aed; }
+.role-admin { background-color: #dbeafe; color: #1d4ed8; }
+.role-lawyer { background-color: #dcfce7; color: #166534; }
+.role-client { background-color: #f1f5f9; color: #475569; }
+
+/* Print styles */
+@media print {
+  .no-print { display: none !important; }
+}
